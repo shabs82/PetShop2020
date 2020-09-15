@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Data;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using PetShop2020.Core.Application_Service.Services;
 using PetShop2020.Core.Domain_Service;
 using PetShop2020.Core.Entity;
 
@@ -12,11 +14,14 @@ namespace PetShop2020.Infrastruture
     public class PetRepository : IPetRepository
     {
        
-        private List<Pet> pets;
+        private static List<Pet> pets = new List<Pet>();
+        
+        
+       
         public PetRepository()
         {
 
-            pets = FakeDb.petsList;
+
         }
         
         public Pet CheapestAvailable()
@@ -35,12 +40,16 @@ namespace PetShop2020.Infrastruture
             return finalPet;
         }
 
+        
+
         public Pet Create(Pet pet)
         {
+            pet.ID++;
             pets.Add(pet);
             return pet;
         }
 
+        
         public Pet Delete(int id, string name)
         {
            Pet pet =  ReadById(id);
@@ -60,7 +69,7 @@ namespace PetShop2020.Infrastruture
 
         public Pet ReadById(int id)
         {
-            return FakeDb.ReadPetData().FirstOrDefault(pet => pet.Id == id);
+            return pets.FirstOrDefault(pet => pet.ID == id);
         }
 
        

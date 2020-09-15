@@ -10,6 +10,7 @@ namespace PetShop2020.Core.Entity
         CAT,
         DOG,
         RABBIT,
+        None
         
     }
 }

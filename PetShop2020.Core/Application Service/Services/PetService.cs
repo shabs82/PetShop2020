@@ -27,7 +27,7 @@ namespace PetShop2020.Core.Application_Service.Service
 
         public Pet Create(string name, AnimalType type, DateTime birthdate, DateTime soldDate, string previousOwner, double price)
         {
-            Pet newPet = new Pet() { Name = name, Type = type, BirthDate = birthdate, SoldDate = soldDate, PreviousOwner = previousOwner, Price = price };
+            Pet newPet = new Pet() {Name = name, Type = type, BirthDate = birthdate, SoldDate = soldDate, Price = price };
             return newPet;
 
         }
