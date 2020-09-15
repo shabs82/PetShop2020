@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop2020.UI", "PetShop2020\PetShop2020.UI.csproj", "{F3D60A3A-DF07-4D2A-B9BE-36722A01F815}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.UI", "PetShop2020\PetShop2020.UI.csproj", "{F3D60A3A-DF07-4D2A-B9BE-36722A01F815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop2020.Core", "PetShop2020.Core\PetShop2020.Core.csproj", "{EC9BD71B-8F98-4AC3-9394-D103FA626F1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.Core", "PetShop2020.Core\PetShop2020.Core.csproj", "{EC9BD71B-8F98-4AC3-9394-D103FA626F1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop2020.Core.Entity", "PetShop2020.Core.Entity\PetShop2020.Core.Entity.csproj", "{F605AC12-9428-4DD7-AF77-E01124066384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.Core.Entity", "PetShop2020.Core.Entity\PetShop2020.Core.Entity.csproj", "{F605AC12-9428-4DD7-AF77-E01124066384}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop2020.Infrastruture", "PetShop2020.Infrastruture\PetShop2020.Infrastruture.csproj", "{ECC2E438-8A9E-4E5A-A3E3-001FFBCD781A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.Infrastruture", "PetShop2020.Infrastruture\PetShop2020.Infrastruture.csproj", "{ECC2E438-8A9E-4E5A-A3E3-001FFBCD781A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{7FB7CBC4-B7CD-4BAB-8190-C054D58267B1}"
 EndProject
@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{566C7808-9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{22DB25ED-6338-4148-8E48-DFFCDFF9CAF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop2020.UI.Rest.API", "PetShop2020.UI.Rest.API\PetShop2020.UI.Rest.API.csproj", "{8619F862-3548-4191-A68E-348FDD6287F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.UI.Rest.API", "PetShop2020.UI.Rest.API\PetShop2020.UI.Rest.API.csproj", "{8619F862-3548-4191-A68E-348FDD6287F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

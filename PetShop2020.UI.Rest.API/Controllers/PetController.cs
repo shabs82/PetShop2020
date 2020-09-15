@@ -35,6 +35,12 @@ namespace PetShop2020.UI.Rest.API.Controllers
             return _petService.ReadById(id);
         }
 
+        [HttpGet]
+        public List<Pet> Get(string direction)
+        {
+            return _petService.SortPetByPrice(direction);
+        }
+
         // POST api/<PetController>
         [HttpPost]
         public void Post([FromBody] Pet pet)
