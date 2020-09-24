@@ -14,21 +14,21 @@ namespace PetShop2020.Infrastruture
     public class PetRepository : IPetRepository
     {
        
-        private static List<Pet> pets = new List<Pet>();
-        
-        
-       
-        public PetRepository()
+       private readonly PetShop2020DBContext _context;
+
+
+
+        public PetRepository(PetShop2020DBContext context)
         {
 
-
+            _context = context;
         }
         
         public Pet CheapestAvailable()
         {
             var HighestPrice = Double.MaxValue;
             Pet finalPet = null;
-            foreach (var pet in pets)
+            foreach (var pet in _context.Pets.ToList())
             {
                 if (HighestPrice > pet.Price)
                 {
@@ -44,32 +44,28 @@ namespace PetShop2020.Infrastruture
 
         public Pet Create(Pet pet)
         {
-            pet.ID++;
-            pets.Add(pet);
-            return pet;
+            var PetEntry = _context.Pets.Add(pet);
+            _context.SaveChanges();
+            return PetEntry.Entity;
         }
 
         
-        public Pet Delete(int id, string name)
+        public Pet Delete(int id)
         {
-           Pet pet =  ReadById(id);
-           if (pet != null)
-           {
-               pets.Remove(pet);
-               return pet;
-           }
+            var PetDeleted = _context.Remove((new Pet(){ID = id}));
+            _context.SaveChanges();
+            return PetDeleted.Entity;
 
-           return null;
         }
 
         public IEnumerable<Pet> GetPets()
         {
-           return pets.ToList();
+           return _context.Pets.ToList();
         }
 
         public Pet ReadById(int id)
         {
-            return pets.FirstOrDefault(pet => pet.ID == id);
+            return _context.Pets.FirstOrDefault(pet => pet.ID == id);
         }
 
        
@@ -79,11 +75,11 @@ namespace PetShop2020.Infrastruture
             var tempList = new List<Pet>();
             if (direction.Equals("desc"))
             {
-                tempList = pets.OrderByDescending(s => s.Price).ToList();
+                tempList = _context.Pets.OrderByDescending(s => s.Price).ToList();
             }
             else if (direction.Equals("asc"))
             {
-                tempList = pets.OrderBy(s => s.Price).ToList();
+                tempList = _context.Pets.OrderBy(s => s.Price).ToList();
             }
 
             return tempList;
@@ -98,6 +94,10 @@ namespace PetShop2020.Infrastruture
             }
 
             return pet;
+
+            var PetEntry = _context.Pets.Update(pet);
+            _context.SaveChanges();
+            return PetEntry.Entity;
         } 
     }
 

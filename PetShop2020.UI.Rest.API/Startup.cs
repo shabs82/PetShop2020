@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PetShop2020.Core.Application_Service;
 using PetShop2020.Core.Application_Service.Service;
@@ -26,9 +27,13 @@ namespace PetShop2020.UI.Rest.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PetShop2020Context>(opt =>
+            var loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
+
+            services.AddDbContext<PetShop2020DBContext>(opt =>
             {
-                opt.UseSqlite("Data Source=petApp.db");
+                opt.UseLoggerFactory(loggerFactory);
+                   
+                opt.UseSqlite("Data Source=PetShopApp.db");
             });
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
@@ -51,9 +56,10 @@ namespace PetShop2020.UI.Rest.API
             {
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                    PetShop2020Context context = scope.ServiceProvider.GetService<PetShop2020Context>();
-                    IDBInitializer dbInitializer = scope.ServiceProvider.GetService<IDBInitializer>();
-                    dbInitializer.Seed(context);
+                    PetShop2020DBContext context = scope.ServiceProvider.GetService<PetShop2020DBContext>();
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                    new DBInitializer().Seed(context);
                 }
                 app.UseDeveloperExceptionPage();
             }

@@ -41,6 +41,11 @@ namespace PetShop2020.Core.Application_Service.Services
 
         }
 
+        public List<Owner> ReadAll()
+        {
+           return  _ownerRepository.GetAllOwners();
+        }
+
         public Owner Delete(int Id)
         {
             if (Id  <= 0)

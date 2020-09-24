@@ -52,14 +52,14 @@ namespace PetShop2020.Core.Application_Service.Service
 
         }
 
-        public Pet Delete(int id, string name)
+        public Pet Delete(int id)
         {
-            if ((id == null || id <= 0) || String.IsNullOrEmpty(name))
+            if ((id == null || id <= 0))
             {
                 throw new ArgumentNullException();
             }
 
-            return _petRepository.Delete(id , name);
+            return _petRepository.Delete(id);
 
         }
 
@@ -76,10 +76,10 @@ namespace PetShop2020.Core.Application_Service.Service
 
         
 
-        public List<Pet> SortPetByPrice(string direction)
+        public List<Pet> SortPetByPrice(string OrderBy)
         {
            
-            return _petRepository.SortPetByPrice(direction);
+            return _petRepository.SortPetByPrice(OrderBy);
         }
 
         public Pet Update(Pet pet)

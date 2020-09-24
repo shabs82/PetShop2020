@@ -11,7 +11,7 @@ namespace PetShop2020.Core.Domain_Service
        
         Pet Create(Pet pet);
         Pet Update(Pet pet);
-        Pet Delete(int id, string name);
+        Pet Delete(int id);
         Pet ReadById(int id);
         List<Pet> SortPetByPrice(string direction);
         Pet CheapestAvailable(); 

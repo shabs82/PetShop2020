@@ -10,7 +10,7 @@ namespace PetShop2020.Core.Application_Service
         Pet Create(string name, AnimalType type, DateTime birthdate, DateTime soldDate, string previousOwner, double price);
         Pet Create(Pet pet);
         Pet Update(Pet pet);
-        Pet Delete(int id , string name);
+        Pet Delete(int id);
         Pet ReadById(int id);
         List <Pet>SortPetByPrice(string direction);
         Pet CheapestAvailable();
