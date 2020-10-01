@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -20,36 +21,70 @@ namespace PetShop2020.UI.Rest.API.Controllers
         {
             _ownerService = ownerService;
         }
-        // GET: api/<OwnerController>
+        // GET api/owners -- READ ALL
         [HttpGet]
-        public IEnumerable<Owner> Get()
+        public ActionResult<IEnumerable<Owner>> Get()
         {
-            return null;
+            try
+            {
+                return _ownerService.ReadAll();
+            }
+            catch (DataException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         // GET api/<OwnerController>/5
         [HttpGet("{id}")]
-        public Owner Get(int id)
+        public ActionResult<Owner> Get(int id)
         {
             return _ownerService.ReadById(id);
         }
 
         // POST api/<OwnerController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody]Owner owner)
         {
+            try
+            {
+                return Ok(_ownerService.Create(owner));
+            }
+
+            catch (MissingMemberException e)
+            {
+                return NotFound(e.Message);
+            }
+             
         }
 
         // PUT api/<OwnerController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] Owner owner)
         {
+            try
+            {
+                return Ok(_ownerService.Update(owner));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // DELETE api/<OwnerController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            try
+            {
+                return Ok(_ownerService.Delete(id));
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

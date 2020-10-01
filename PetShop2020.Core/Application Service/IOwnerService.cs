@@ -13,5 +13,6 @@ namespace PetShop2020.Core.Application_Service
         Owner Delete(int id);
         Owner ReadById(int id);
         List<Owner> FilteredList(Filter filter);
+        List<Owner> ReadAll();
     }
 }

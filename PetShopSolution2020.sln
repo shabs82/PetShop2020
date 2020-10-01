@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.Core", "PetShop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.Core.Entity", "PetShop2020.Core.Entity\PetShop2020.Core.Entity.csproj", "{F605AC12-9428-4DD7-AF77-E01124066384}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.Infrastruture", "PetShop2020.Infrastruture\PetShop2020.Infrastruture.csproj", "{ECC2E438-8A9E-4E5A-A3E3-001FFBCD781A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop2020.Infrastruture.SQL", "PetShop2020.Infrastruture\PetShop2020.Infrastruture.SQL.csproj", "{ECC2E438-8A9E-4E5A-A3E3-001FFBCD781A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{7FB7CBC4-B7CD-4BAB-8190-C054D58267B1}"
 EndProject

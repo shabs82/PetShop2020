@@ -15,9 +15,9 @@ namespace PetShop2020.Infrastruture
     public class OwnerRepository : IOwnerRepository
     {
        
-        private readonly PetShop2020Context _context;
+        private readonly PetShop2020DBContext _context;
         
-        public OwnerRepository(PetShop2020Context context)
+        public OwnerRepository(PetShop2020DBContext context)
         {
             _context = context;
         }

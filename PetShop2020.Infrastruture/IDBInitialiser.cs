@@ -6,6 +6,6 @@ namespace PetShop2020.Infrastruture
 {
     public interface IDBInitializer
     {
-        void Seed(PetShop2020Context context);
+        void Seed(PetShop2020DBContext context);
     }
 }

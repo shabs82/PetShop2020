@@ -24,14 +24,14 @@ namespace PetShop2020.Core.Application_Service.Services
         }
         public Owner Create(Owner owner)
         {
-            if (owner.Id == null)
-            {
-                throw new NoNullAllowedException($"Id cannot be null ");
-            }
-            if (owner.Id <= 0)
-            {
-                throw new NotFiniteNumberException("Id cannot be in negative");
-            } 
+            //if (owner.Id == null)
+            //{
+            //    throw new NoNullAllowedException($"Id cannot be null ");
+            //}
+            //if (owner.Id <= 0)
+            //{
+            //    throw new NotFiniteNumberException("Id cannot be in negative");
+            //} 
            
             if(String.IsNullOrEmpty(owner.FirstName)&& String.IsNullOrEmpty( owner.LastName))
             {    
@@ -41,9 +41,14 @@ namespace PetShop2020.Core.Application_Service.Services
 
         }
 
+        public List<Owner> ReadAll()
+        {
+           return  _ownerRepository.GetAllOwners();
+        }
+
         public Owner Delete(int Id)
         {
-            if (Id  <= 0)
+            if (Id  != null ) 
             {
                 throw new NullReferenceException("Id cannot be in negative");
             }

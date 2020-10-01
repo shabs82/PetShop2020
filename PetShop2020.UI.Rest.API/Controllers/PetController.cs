@@ -23,29 +23,45 @@ namespace PetShop2020.UI.Rest.API.Controllers
         }
         // GET: api/<PetController>
         [HttpGet]
-        public IEnumerable<Pet> Get()
+        public ActionResult <IEnumerable<Pet>> Get()
         {
-            return _petService.GetPets().ToList();
+            try
+            {
+                return Ok(_petService.GetPets().ToList());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
-        // GET api/<PetController>/5
+        // GET api/pets/5 -- READ BY ID
         [HttpGet("{id}")]
         public ActionResult<Pet> Get(int id)
         {
             return _petService.ReadById(id);
         }
 
-        [HttpGet]
-        public List<Pet> Get(string direction)
+        /*[HttpGet]
+        public List<Pet> Get(string OrderBy)
         {
-            return _petService.SortPetByPrice(direction);
+            return _petService.SortPetByPrice(OrderBy);
         }
-
-        // POST api/<PetController>
+        */
+        // POST api/pets -- CREATE
         [HttpPost]
-        public void Post([FromBody] Pet pet)
+        public ActionResult Post([FromBody] Pet pet)
         {
-            _petService.Create(pet);
+            try
+            {
+                return Ok(_petService.Create(pet));
+            }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest(e.Message);
+            }
+           
         }
 
         // PUT api/<PetController>/5
@@ -57,9 +73,9 @@ namespace PetShop2020.UI.Rest.API.Controllers
 
         // DELETE api/<PetController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id , string name)
+        public void Delete(int id)
         {
-            _petService.Delete(id , name);
+            _petService.Delete(id);
         }
     }
 }

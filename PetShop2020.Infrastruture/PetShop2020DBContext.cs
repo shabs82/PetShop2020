@@ -6,9 +6,9 @@ using PetShop2020.Core.Entity;
 
 namespace PetShop2020.Infrastruture
 {
-    public class PetShop2020Context : DbContext
+    public class PetShop2020DBContext : DbContext
     {
-        public PetShop2020Context(DbContextOptions<PetShop2020Context> options) : base(options)
+        public PetShop2020DBContext(DbContextOptions<PetShop2020DBContext> options) : base(options)
         {
         }
 

@@ -1,9 +1,14 @@
+using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using PetShop2020.Core.Application_Service;
 using PetShop2020.Core.Application_Service.Service;
@@ -26,10 +31,38 @@ namespace PetShop2020.UI.Rest.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PetShop2020Context>(opt =>
+            var loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
+             services.AddSwaggerGen(options =>
+             {
+                 options.SwaggerDoc("v1",
+                     new OpenApiInfo
+                     {
+                         Title = "Pet Shop ",
+                         Description = "Pet Shop API",
+                         Version = "v1"
+
+                     });
+                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.XMl";
+                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                 options.IncludeXmlComments(filePath);
+             });
+
+            
+
+
+
+            services.AddDbContext<PetShop2020DBContext>(opt =>
             {
-                opt.UseSqlite("Data Source=petApp.db");
+                opt.UseLoggerFactory(loggerFactory);
+                   
+                opt.UseSqlite("Data Source=PetShopApp.db");
             });
+            services.AddCors(options =>
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+
+                }));
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
 
@@ -51,16 +84,26 @@ namespace PetShop2020.UI.Rest.API
             {
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                    PetShop2020Context context = scope.ServiceProvider.GetService<PetShop2020Context>();
-                    IDBInitializer dbInitializer = scope.ServiceProvider.GetService<IDBInitializer>();
-                    dbInitializer.Seed(context);
+                    PetShop2020DBContext context = scope.ServiceProvider.GetService<PetShop2020DBContext>();
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                    new DBInitializer().Seed(context);
                 }
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pet Shop API");
+                options.RoutePrefix = "";
+
+            });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
@@ -68,6 +111,8 @@ namespace PetShop2020.UI.Rest.API
             {
                 endpoints.MapControllers();
             });
+
+          
         }
     }
 }

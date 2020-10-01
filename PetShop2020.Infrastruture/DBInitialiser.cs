@@ -8,7 +8,7 @@ namespace PetShop2020.Infrastruture
     public class DBInitializer:IDBInitializer
     {
 
-        public void Seed(PetShop2020Context context)
+        public void Seed(PetShop2020DBContext context)
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
@@ -184,8 +184,18 @@ namespace PetShop2020.Infrastruture
             };
             context.Owners.Add(owner1);
 
+            Owner owner2 =new Owner()
+                { 
+                    FirstName = "Billidan", 
+                    LastName = "Blurprage", 
+                    Address = "Glaster bruf 23", 
+                    Email = "illySuks@yahoo.com"
+                };
+            context.Owners.Add(owner2);
 
-            Owner owner3 = new Owner()
+
+
+           Owner owner3 = new Owner()
             {
                 FirstName = "Bart",
                 LastName = "Simpson",
