@@ -43,12 +43,12 @@ namespace PetShop2020.UI.Rest.API.Controllers
             return _petService.ReadById(id);
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public List<Pet> Get(string OrderBy)
         {
             return _petService.SortPetByPrice(OrderBy);
         }
-
+        */
         // POST api/pets -- CREATE
         [HttpPost]
         public ActionResult Post([FromBody] Pet pet)
@@ -73,9 +73,9 @@ namespace PetShop2020.UI.Rest.API.Controllers
 
         // DELETE api/<PetController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id , string name)
+        public void Delete(int id)
         {
-            _petService.Delete(id , name);
+            _petService.Delete(id);
         }
     }
 }

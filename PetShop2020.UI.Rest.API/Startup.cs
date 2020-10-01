@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using PetShop2020.Core.Application_Service;
 using PetShop2020.Core.Application_Service.Service;
@@ -28,6 +32,24 @@ namespace PetShop2020.UI.Rest.API
         public void ConfigureServices(IServiceCollection services)
         {
             var loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
+             services.AddSwaggerGen(options =>
+             {
+                 options.SwaggerDoc("v1",
+                     new OpenApiInfo
+                     {
+                         Title = "Pet Shop ",
+                         Description = "Pet Shop API",
+                         Version = "v1"
+
+                     });
+                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.XMl";
+                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                 options.IncludeXmlComments(filePath);
+             });
+
+            
+
+
 
             services.AddDbContext<PetShop2020DBContext>(opt =>
             {
@@ -35,6 +57,12 @@ namespace PetShop2020.UI.Rest.API
                    
                 opt.UseSqlite("Data Source=PetShopApp.db");
             });
+            services.AddCors(options =>
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+
+                }));
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
 
@@ -63,10 +91,19 @@ namespace PetShop2020.UI.Rest.API
                 }
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pet Shop API");
+                options.RoutePrefix = "";
+
+            });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
@@ -74,6 +111,8 @@ namespace PetShop2020.UI.Rest.API
             {
                 endpoints.MapControllers();
             });
+
+          
         }
     }
 }
