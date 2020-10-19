@@ -13,7 +13,7 @@ namespace PetShop2020.Core.Domain_Service
         Pet Update(Pet pet);
         Pet Delete(int id);
         Pet ReadById(int id);
-        List<Pet> SortPetByPrice(string direction);
+        List<Pet> SortPetByPrice(Filter filter);
         Pet CheapestAvailable(); 
         IEnumerable <Pet>GetPets();
     }

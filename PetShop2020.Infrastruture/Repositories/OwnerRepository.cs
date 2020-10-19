@@ -25,7 +25,7 @@ namespace PetShop2020.Infrastruture
 
         public Owner Create(Owner owner)
         {
-            owner.Id++;
+            
             _context.Attach(owner).State = EntityState.Added;
             _context.SaveChanges();
             return owner;

@@ -12,9 +12,20 @@ namespace PetShop2020.Infrastruture
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Pet>()
+                .HasOne(p => p.Owner)
+                .WithMany(c => c.PetId)
+                .OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+        }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Pet> Pets { get; set; }
+        
+
+        
     }
 
 }

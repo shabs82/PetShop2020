@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using PetShop2020.Core.Application_Service.Services;
 using PetShop2020.Core.Domain_Service;
 using PetShop2020.Core.Entity;
@@ -44,17 +45,18 @@ namespace PetShop2020.Infrastruture
 
         public Pet Create(Pet pet)
         {
-            var PetEntry = _context.Pets.Add(pet);
+            _context.Attach(pet).State = EntityState.Added;
             _context.SaveChanges();
-            return PetEntry.Entity;
+            return pet;
         }
 
         
         public Pet Delete(int id)
         {
-            var PetDeleted = _context.Remove((new Pet(){ID = id}));
+            var PetDeleted = ReadById(id);
+            _context.Attach(PetDeleted).State = EntityState.Deleted;
             _context.SaveChanges();
-            return PetDeleted.Entity;
+            return PetDeleted;
 
         }
 
@@ -65,19 +67,19 @@ namespace PetShop2020.Infrastruture
 
         public Pet ReadById(int id)
         {
-            return _context.Pets.FirstOrDefault(pet => pet.ID == id);
+            return _context.Pets.AsNoTracking().Include(p => p.Owner).FirstOrDefault(pet => pet.ID == id);
         }
 
        
 
-        public List<Pet> SortPetByPrice(string direction)
+        public List<Pet> SortPetByPrice(Filter filter)
         {
             var tempList = new List<Pet>();
-            if (direction.Equals("desc"))
+            if (filter.Equals("desc"))
             {
                 tempList = _context.Pets.OrderByDescending(s => s.Price).ToList();
             }
-            else if (direction.Equals("asc"))
+            else if (filter.Equals("asc"))
             {
                 tempList = _context.Pets.OrderBy(s => s.Price).ToList();
             }
@@ -92,12 +94,9 @@ namespace PetShop2020.Infrastruture
             {
               throw new NoNullAllowedException();
             }
-
-            return pet;
-
-            var PetEntry = _context.Pets.Update(pet);
+            _context.Attach(pet).State = EntityState.Modified;
             _context.SaveChanges();
-            return PetEntry.Entity;
+            return pet;
         } 
     }
 
