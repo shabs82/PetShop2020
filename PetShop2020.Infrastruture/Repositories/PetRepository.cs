@@ -25,7 +25,7 @@ namespace PetShop2020.Infrastruture
             _context = context;
         }
         
-        public Pet CheapestAvailable()
+        public Pet CheapestAvailable() // any other ways to do this
         {
             var HighestPrice = Double.MaxValue;
             Pet finalPet = null;
@@ -53,7 +53,7 @@ namespace PetShop2020.Infrastruture
         
         public Pet Delete(int id)
         {
-            var PetDeleted = ReadById(id);
+            var PetDeleted = ReadById(id);// why is a variable needed here.
             _context.Attach(PetDeleted).State = EntityState.Deleted;
             _context.SaveChanges();
             return PetDeleted;
@@ -67,7 +67,7 @@ namespace PetShop2020.Infrastruture
 
         public Pet ReadById(int id)
         {
-            return _context.Pets.AsNoTracking().Include(p => p.Owner).FirstOrDefault(pet => pet.ID == id);
+            return _context.Pets.AsNoTracking().Include(p => p.Owner).FirstOrDefault(pet => pet.ID == id);//why is owner needed here
         }
 
        

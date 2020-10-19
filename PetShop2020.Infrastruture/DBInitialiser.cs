@@ -26,6 +26,7 @@ namespace PetShop2020.Infrastruture
             string password = "1234";
             _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashAdmin,
                 out byte[] passwordSaltAdmin);
+
             _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashUser,
                 out byte[] passwordSaltUser);
 
@@ -33,6 +34,7 @@ namespace PetShop2020.Infrastruture
             {
                 Username = "Admin", PasswordHash = passwordHashAdmin, PasswordSalt = passwordSaltAdmin, IsAdmin = true
             });
+
             context.Users.Add(new User()
                 {Username = "User", PasswordHash = passwordHashUser, PasswordSalt = passwordSaltUser, IsAdmin = false});
 
