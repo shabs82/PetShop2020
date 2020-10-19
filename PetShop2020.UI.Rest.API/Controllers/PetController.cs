@@ -14,26 +14,29 @@ namespace PetShop2020.UI.Rest.API.Controllers
     [ApiController]
     public class PetController : ControllerBase
     {
-        private readonly IPetService _petService;// cannot be overriden ever once read only is set//
+        private readonly IPetService _petService; // cannot be overriden ever once read only is set//
 
 
         public PetController(IPetService petService)
         {
             _petService = petService;
         }
+
         // GET: api/<PetController>
         [HttpGet]
-        public ActionResult <IEnumerable<Pet>> Get()
+        public ActionResult<IEnumerable<Pet>> Get(Filter filter)
         {
             try
             {
+                //write codes for filtering
+
                 return Ok(_petService.GetPets().ToList());
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            
+
         }
 
         // GET api/pets/5 -- READ BY ID
@@ -61,21 +64,48 @@ namespace PetShop2020.UI.Rest.API.Controllers
             {
                 return BadRequest(e.Message);
             }
-           
+
         }
 
-        // PUT api/<PetController>/5
+        // PUT api/pets/5 - UPDATE
         [HttpPut("{id}")]
-        public void Put( [FromBody] Pet pet)
+        public ActionResult Put(int id, [FromBody] Pet pet)
         {
-            _petService.Update(pet);
+            try
+            {
+                if (id != pet.ID)
+                {
+                    return BadRequest( $"Parameter ID({id}) and pet ID({pet.ID}) have to be the same");
+                }
+
+                return Ok(_petService.Update(pet));
+            }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
+
+
+
+
+
 
         // DELETE api/<PetController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
-            _petService.Delete(id);
+            try
+            {
+                _petService.Delete(id);
+                return Ok($"Deleted pet with Id: {id}");
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
+        
+
     }
 }

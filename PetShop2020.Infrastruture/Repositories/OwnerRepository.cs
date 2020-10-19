@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -25,7 +26,7 @@ namespace PetShop2020.Infrastruture
 
         public Owner Create(Owner owner)
         {
-            owner.Id++;
+            
             _context.Attach(owner).State = EntityState.Added;
             _context.SaveChanges();
             return owner;
@@ -34,12 +35,8 @@ namespace PetShop2020.Infrastruture
         public Owner Delete(int id)
         {
             Owner own = ReadById(id);
-            if (own != null)
-            {
-                _context.Attach(own).State = EntityState.Deleted;
-                _context.SaveChanges();
-            }
-
+            _context.Attach(own).State = EntityState.Deleted;
+            _context.SaveChanges();
             return own;
         }
 
@@ -66,14 +63,18 @@ namespace PetShop2020.Infrastruture
             ;
         }
 
-        public Owner ReadById(int id)
+        public Owner ReadById(int id)// check if this is correct
         {
     
-            return _context.Owners.FirstOrDefault(x => x.Id == id);
+            return _context.Owners.AsNoTracking().Include(p => p.PetId).FirstOrDefault(x => x.Id == id);
         }
 
         public Owner Update(Owner owner)
         {
+            if (owner.Id != null || owner.Id <= 0)
+            {
+                throw new NoNullAllowedException();
+            }
 
             _context.Attach(owner).State = EntityState.Modified;
             _context.SaveChanges();

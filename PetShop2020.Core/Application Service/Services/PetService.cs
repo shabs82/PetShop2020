@@ -76,10 +76,10 @@ namespace PetShop2020.Core.Application_Service.Service
 
         
 
-        public List<Pet> SortPetByPrice(string OrderBy)
+        public List<Pet> SortPetByPrice(Filter filter)
         {
            
-            return _petRepository.SortPetByPrice(OrderBy);
+            return _petRepository.SortPetByPrice(filter);
         }
 
         public Pet Update(Pet pet)
