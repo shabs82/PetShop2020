@@ -15,6 +15,6 @@ namespace PetShop2020.Core.Domain_Service
         Pet ReadById(int id);
         List<Pet> SortPetByPrice(Filter filter);
         Pet CheapestAvailable(); 
-        IEnumerable <Pet>GetPets();
+        IEnumerable <Pet>ReadAll(Filter filter = null);
     }
 }

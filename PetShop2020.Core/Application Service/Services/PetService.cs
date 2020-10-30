@@ -34,16 +34,16 @@ namespace PetShop2020.Core.Application_Service.Service
         public Pet Create(Pet pet)
         {
             
-                if (pet.ID <= 1)
-                {
-                    throw new ArgumentOutOfRangeException($" Id cannot be null. Please enter a valid num");
-                }
+                //if (pet.ID <= 1)
+                //{
+                //    throw new ArgumentOutOfRangeException($" Id cannot be null. Please enter a valid num");
+                //}
 
-                else if (pet.Name != String.Empty)
+                if (pet.Name != String.Empty)
                 {
                     throw new ArgumentNullException($" Name field cannot be empty");
                 }
-                else if (pet.Price <= 0)
+                if (pet.Price <= 0)
                 {
                     throw new ArgumentOutOfRangeException($" Price cannot be zero or below");
                 }
@@ -54,7 +54,7 @@ namespace PetShop2020.Core.Application_Service.Service
 
         public Pet Delete(int id)
         {
-            if ((id == null || id <= 0))
+            if ( id <= 0)
             {
                 throw new ArgumentNullException();
             }
@@ -74,11 +74,11 @@ namespace PetShop2020.Core.Application_Service.Service
             return _petRepository.ReadById(id);
         }
 
-        
+
 
         public List<Pet> SortPetByPrice(Filter filter)
         {
-           
+
             return _petRepository.SortPetByPrice(filter);
         }
 
@@ -95,8 +95,8 @@ namespace PetShop2020.Core.Application_Service.Service
             if (pet.ID <= 0)
             {
                 throw new ArgumentNullException($"Pet Id cannot be in negative");
-            }
-            else if (String.IsNullOrEmpty(pet.Name) )
+            } 
+            if (String.IsNullOrEmpty(pet.Name) )
             {
                 throw new NoNullAllowedException($" Pet id cannot be null or empty");
             }
@@ -104,9 +104,9 @@ namespace PetShop2020.Core.Application_Service.Service
         }
 
 
-        public List<Pet> GetPets()
+        public List<Pet> ReadAll(Filter filter)
         {
-            return _petRepository.GetPets().ToList();
+            return _petRepository.ReadAll(filter).ToList();
         }
     }
 }

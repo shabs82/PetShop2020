@@ -20,8 +20,7 @@ namespace PetShop2020.Infrastruture
 
         public void Seed(PetShop2020DBContext context)
         {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+           
 
             string password = "1234";
             _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashAdmin,
@@ -257,6 +256,8 @@ namespace PetShop2020.Infrastruture
                 OwnerId = 1
             };
             context.Pets.Add(rabbitPet4);
+
+            context.SaveChanges();
 
 
 

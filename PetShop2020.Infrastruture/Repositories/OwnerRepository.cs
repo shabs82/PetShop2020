@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Web.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetShop2020.Core;
 using PetShop2020.Core.Application_Service;
@@ -71,7 +70,7 @@ namespace PetShop2020.Infrastruture
 
         public Owner Update(Owner owner)
         {
-            if (owner.Id != null || owner.Id <= 0)
+            if (owner.Id <= 0)
             {
                 throw new NoNullAllowedException();
             }
