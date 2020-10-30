@@ -13,7 +13,7 @@ namespace PetShop2020.Core.Application_Service
         Pet Delete(int id);
         Pet ReadById(int id);
         List<Pet> SortPetByPrice(Filter filter);
-        Pet CheapestAvailable();
-        List<Pet> GetPets();
+        Pet CheapestAvailable(); 
+        List<Pet> ReadAll(Filter filter);
     }
 }

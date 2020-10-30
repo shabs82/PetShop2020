@@ -24,16 +24,12 @@ namespace PetShop2020.Core.Application_Service.Services
         }
         public Owner Create(Owner owner)
         {
-            //if (owner.Id == null)
-            //{
-            //    throw new NoNullAllowedException($"Id cannot be null ");
-            //}
-            //if (owner.Id <= 0)
-            //{
-            //    throw new NotFiniteNumberException("Id cannot be in negative");
-            //} 
-           
-            if(String.IsNullOrEmpty(owner.FirstName)&& String.IsNullOrEmpty( owner.LastName))
+            if (owner.Id <= 0)
+            {
+                throw new NotFiniteNumberException("Id cannot be in negative");
+            }
+
+            if (String.IsNullOrEmpty(owner.FirstName)&& String.IsNullOrEmpty( owner.LastName))
             {    
                 throw new InvalidDataException();
             }
@@ -48,7 +44,7 @@ namespace PetShop2020.Core.Application_Service.Services
 
         public Owner Delete(int Id)
         {
-            if (Id  != null ) 
+            if (Id <= 0 ) 
             {
                 throw new NullReferenceException("Id cannot be in negative");
             }

@@ -24,17 +24,18 @@ namespace PetShop2020.UI.Rest.API.Controllers
 
         // GET: api/<PetController>
         [HttpGet]
-        public ActionResult<IEnumerable<Pet>> Get(Filter filter)
+        public ActionResult<IEnumerable<Pet>> Get([FromQuery]Filter filter)
         {
             try
             {
                 //write codes for filtering
-
-                return Ok(_petService.GetPets().ToList());
+                //return Ok(_petService.SortPetByPrice(filter));
+                return Ok(_petService.ReadAll(filter));
+                //return Ok(_petService.GetPets().ToList());
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return StatusCode(500, e.Message);
             }
 
         }
@@ -43,7 +44,14 @@ namespace PetShop2020.UI.Rest.API.Controllers
         [HttpGet("{id}")]
         public ActionResult<Pet> Get(int id)
         {
-            return _petService.ReadById(id);
+            try
+            {
+                return Ok(_petService.ReadById(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
 
         /*[HttpGet]
